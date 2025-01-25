@@ -17,9 +17,11 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" className={`${geistSans.variable} ${geistMono.variable}`}>
       <head>{/* Add any meta tags or additional head content here */}</head>
-      <body style={{ display: 'flex' }}>
+      <body style={{ display: "flex" }}>
         <Sidebar /> {/* Render the Sidebar component */}
-        <main style={{ flex: 1, padding: '1rem' }}> {/* Main content area */}
+        <main style={{ marginLeft: "200px", flex: 1, padding: "1rem" }}>
+          {" "}
+          {/* Main content area */}
           {children}
         </main>
       </body>
