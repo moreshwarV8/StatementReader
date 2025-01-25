@@ -1,121 +1,72 @@
-// import React from "react";
-
-// const Sidebar = () => {
-//   return (
-//     <div
-//       style={{
-//         position: "fixed",
-//         top: 0,
-//         left: 0,
-//         width: "200px",
-//         height: "100vh",
-//         backgroundColor: "#f0f0f0",
-//         padding: "1rem",
-//         boxShadow: "2px 0 5px rgba(0, 0, 0, 0.1)",
-//         zIndex: 10,
-//       }}
-//     >
-//       <nav>
-//         <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
-//           <li style={{ marginBottom: "1rem" }}>
-//             <a
-//               href="#home"
-//               style={{
-//                 textDecoration: "none",
-//                 color: "#333",
-//                 fontWeight: "bold",
-//               }}
-//             >
-//               Home
-//             </a>
-//           </li>
-//           <li style={{ marginBottom: "1rem" }}>
-//             <a
-//               href="#about"
-//               style={{
-//                 textDecoration: "none",
-//                 color: "#333",
-//                 fontWeight: "bold",
-//               }}
-//             >
-//               About
-//             </a>
-//           </li>
-//           <li style={{ marginBottom: "1rem" }}>
-//             <a
-//               href="#info"
-//               style={{
-//                 textDecoration: "none",
-//                 color: "#333",
-//                 fontWeight: "bold",
-//               }}
-//             >
-//               Info
-//             </a>
-//           </li>
-//         </ul>
-//       </nav>
-//     </div>
-//   );
-// };
-
-// export default Sidebar;
-import React from "react";
-import { Home, Info, User } from "lucide-react"; // Icons for a modern touch
+"use client";
+import React, { useState } from "react";
+import { Home, Info, User, ChevronLeft, ChevronRight } from "lucide-react";
 
 const Sidebar = () => {
+  const [isCollapsed, setIsCollapsed] = useState(false);
+
+  const toggleSidebar = () => {
+    setIsCollapsed(!isCollapsed);
+  };
+
   return (
     <div
-      className="fixed top-0 left-0 w-52 h-screen bg-gray-900 text-white shadow-lg flex flex-col justify-between"
-      style={{ width: "200px" }} // Custom width
+      className={`fixed top-0 left-0 h-screen bg-gray-900 text-white shadow-lg transition-all duration-300 ${
+        isCollapsed ? "w-16" : "w-52"
+      }`}
     >
-      {/* Logo and Navigation Links */}
-      <div className="p-4">
+      {/* Toggle Button */}
+      <div className="absolute top-4 right-[-16px] bg-gray-800 text-gray-300 rounded-full p-1 cursor-pointer shadow-md z-10">
+        <button onClick={toggleSidebar}>
+          {isCollapsed ? (
+            <ChevronRight className="w-5 h-5" />
+          ) : (
+            <ChevronLeft className="w-5 h-5" />
+          )}
+        </button>
+      </div>
+
+      {/* Sidebar Content */}
+      <div className="flex flex-col items-center">
         {/* Logo */}
-        <h1 className="text-xl font-bold text-center mb-6 tracking-wide">
-          MyApp
-        </h1>
+        {!isCollapsed && (
+          <h1 className="text-xl font-bold text-center my-6 tracking-wide">
+            MyApp
+          </h1>
+        )}
 
         {/* Navigation Links */}
-        <nav>
-          <ul className="space-y-3">
-            <li>
-              <a
-                href="#home"
-                className="flex items-center space-x-3 text-gray-300 hover:text-white hover:bg-gray-800 p-2 rounded-md transition"
-              >
-                <Home className="w-5 h-5" />
-                <span>Home</span>
-              </a>
-            </li>
-            <li>
-              <a
-                href="#about"
-                className="flex items-center space-x-3 text-gray-300 hover:text-white hover:bg-gray-800 p-2 rounded-md transition"
-              >
-                <User className="w-5 h-5" />
-                <span>About</span>
-              </a>
-            </li>
-            <li>
-              <a
-                href="#info"
-                className="flex items-center space-x-3 text-gray-300 hover:text-white hover:bg-gray-800 p-2 rounded-md transition"
-              >
-                <Info className="w-5 h-5" />
-                <span>Info</span>
-              </a>
-            </li>
-          </ul>
+        <nav className="mt-8 flex flex-col items-center space-y-4">
+          <a
+            href="#home"
+            className="flex items-center space-x-3 text-gray-300 hover:text-white hover:bg-gray-800 p-2 rounded-md transition w-full justify-center"
+          >
+            <Home className="w-5 h-5" />
+            {!isCollapsed && <span>Home</span>}
+          </a>
+          <a
+            href="#about"
+            className="flex items-center space-x-3 text-gray-300 hover:text-white hover:bg-gray-800 p-2 rounded-md transition w-full justify-center"
+          >
+            <User className="w-5 h-5" />
+            {!isCollapsed && <span>About</span>}
+          </a>
+          <a
+            href="#info"
+            className="flex items-center space-x-3 text-gray-300 hover:text-white hover:bg-gray-800 p-2 rounded-md transition w-full justify-center"
+          >
+            <Info className="w-5 h-5" />
+            {!isCollapsed && <span>Info</span>}
+          </a>
         </nav>
       </div>
 
       {/* Footer */}
-      <div className="p-4 border-t border-gray-800">
-        <p className="text-xs text-center text-gray-500">
+      {!isCollapsed && (
+        <div className="absolute bottom-4 w-full text-center text-gray-500 text-xs">
           © 2025 MyApp. All rights reserved.
-        </p>
-      </div>
+        </div>
+      )}
     </div>
   );
 };
