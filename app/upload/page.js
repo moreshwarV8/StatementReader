@@ -1,12 +1,7 @@
-const Upload = () => {
-  return (
-    <div>
-   
-      <h2>Upload Your PDF File</h2>
-      console.log("Uploading")
-      </div>  
-      
-  );
+import UploadComponent from "@/components/UploadComponent";
+
+const UploadPage = () => {
+  return <UploadComponent />;
 };
 
-export default Upload;
+export default UploadPage;
